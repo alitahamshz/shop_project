@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shop_project/data/repo/auth_repository.dart';
+import 'package:shop_project/data/source/favorite_manager.dart';
 import 'package:shop_project/theme/theme.dart';
 import 'package:shop_project/ui/auth/auth.dart';
 import 'package:shop_project/ui/home/home.dart';
 import 'package:shop_project/ui/root.dart';
 
-void main() {
+void main() async{
+  await FavoriteManage.init();
   WidgetsFlutterBinding.ensureInitialized();
   authRepository.LoadAuthInfo();
   runApp(const MyApp());

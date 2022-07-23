@@ -13,6 +13,7 @@ import 'package:shop_project/data/repo/product_repository.dart';
 import 'package:shop_project/ui/home/bloc/home_bloc.dart';
 import 'package:shop_project/ui/home/widgets/cachedImage.dart';
 import 'package:shop_project/ui/home/widgets/error.dart';
+import 'package:shop_project/ui/list/productList.dart';
 import 'package:shop_project/ui/product/product.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -58,7 +59,11 @@ class HomeScreen extends StatelessWidget {
 
                       case 3:
                         return _HorizontalProductList(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ProductListScreen(
+                                    sort: ProductSort.latest)));
+                          },
                           title: 'جدیدترین ها',
                           products: state.latestProducts,
                         );
@@ -68,7 +73,11 @@ class HomeScreen extends StatelessWidget {
                         );
                       case 5:
                         return _HorizontalProductList(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ProductListScreen(
+                                    sort: ProductSort.popular)));
+                          },
                           title: 'پربازدیدترین ها',
                           products: state.latestProducts,
                         );
@@ -79,9 +88,12 @@ class HomeScreen extends StatelessWidget {
             } else if (state is HomeLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is HomeError) {
-              return AppErrorWidget(exeption:state.exeption,onPressed: (){
-                BlocProvider.of<HomeBloc>(context).add(HomeRefresh());
-              },);
+              return AppErrorWidget(
+                exeption: state.exeption,
+                onPressed: () {
+                  BlocProvider.of<HomeBloc>(context).add(HomeRefresh());
+                },
+              );
             } else {
               throw Exception('state is not supported');
             }
@@ -91,8 +103,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
 
 class _HorizontalProductList extends StatelessWidget {
   final String title;
@@ -124,15 +134,14 @@ class _HorizontalProductList extends StatelessWidget {
               itemCount: products.length,
               itemBuilder: ((context, index) {
                 final product = products[index];
-                return ProductItem(product: product,borderRadius: BorderRadius.circular(12));
+                return ProductItem(
+                    product: product, borderRadius: BorderRadius.circular(12));
               })),
         )
       ],
     );
   }
 }
-
-
 
 class bannerSlider extends StatelessWidget {
   final PageController _controller = PageController();

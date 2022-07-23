@@ -14,8 +14,8 @@ class ProductListLoading extends ProductListState {}
 class ProductListSuccess extends ProductListState {
   final List<ProductEntity> products;
   final int sort;
-
-  const ProductListSuccess(this.products, this.sort);
+  final List<String> sortNames;
+  const ProductListSuccess(this.products, this.sort, this.sortNames);
 
 }
 

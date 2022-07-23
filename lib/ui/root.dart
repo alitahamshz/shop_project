@@ -4,6 +4,7 @@ import 'package:shop_project/data/repo/auth_repository.dart';
 import 'package:shop_project/data/repo/cart_repository.dart';
 import 'package:shop_project/ui/cart/cart.dart';
 import 'package:shop_project/ui/home/home.dart';
+import 'package:shop_project/ui/profile/profile.dart';
 import 'package:shop_project/ui/widget/badge.dart';
 
 const int homeIndex = 0;
@@ -72,17 +73,7 @@ class _RootScreenState extends State<RootScreen> {
                   onGenerateRoute: (settings) => MaterialPageRoute(
                       builder: (context) => Offstage(
                             offstage: selectedScreenIndex != profileIndex,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('پروفایل'),
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        authRepository.signOut();
-                                        cartRepository.cartItemCountNotifier.value = 0;
-                                      },
-                                      child: Text('خروج'))
-                                ]),
+                            child: const profileScreen(),
                           ))),
             ],
           ),
